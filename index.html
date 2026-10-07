@@ -71,7 +71,7 @@
     }
 
     /* Hero */
-    header { text-align: center; margin-bottom: 44px; }
+    header { text-align: center; margin-bottom: 36px; }
     .logo {
       display: block;
       width: 112px; height: 112px;
@@ -101,32 +101,8 @@
       color: var(--secondary);
       font-size: 19px; line-height: 1.42; letter-spacing: -.01em;
     }
-    .cta {
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 22px;
-      padding: 11px 22px;
-      border-radius: 980px;
-      background: var(--brand);
-      color: #fff;
-      font-size: 15px; font-weight: 500; letter-spacing: -.01em;
-      text-decoration: none;
-      transition: background .2s ease, transform .2s ease;
-    }
-    .cta:hover { background: var(--brand-2); }
-    .cta:active { transform: scale(.97); }
-    @media (prefers-color-scheme: dark) {
-      .cta { background: #0071e3; }
-      .cta:hover { background: #0077ed; }
-    }
 
-    /* Grouped lists */
-    section + section { margin-top: 32px; }
-    h2 {
-      margin: 0 0 8px 20px;
-      color: var(--secondary);
-      font-size: 13px; font-weight: 500;
-      text-transform: uppercase; letter-spacing: .02em;
-    }
+    /* Link list */
     .group {
       list-style: none; margin: 0; padding: 0;
       background: var(--surface);
@@ -156,6 +132,7 @@
       box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .15);
     }
     .icon svg { width: 22px; height: 22px; }
+    .icon-logo { background: #fff; box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .08); object-fit: cover; }
     .label {
       flex: 1; min-width: 0;
       display: flex; align-items: center; gap: 12px;
@@ -178,15 +155,13 @@
 
     /* Gentle entrance */
     @media (prefers-reduced-motion: no-preference) {
-      header, section, footer { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; }
-      section:nth-of-type(1) { animation-delay: .08s; }
-      section:nth-of-type(2) { animation-delay: .16s; }
-      section:nth-of-type(3) { animation-delay: .24s; }
-      footer { animation-delay: .3s; }
+      header, main, footer { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; }
+      main { animation-delay: .08s; }
+      footer { animation-delay: .16s; }
       @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cta, .link, .chev { transition: none; }
+      .link, .chev { transition: none; }
     }
   </style>
 </head>
@@ -197,75 +172,65 @@
       <span class="eyebrow">Since 2008</span>
       <h1>Industrial Certified Training</h1>
       <p class="lede">OSHA safety, environmental and technology training, all in one place.</p>
-      <a class="cta" href="https://ictraining.us">Visit ictraining.us <span aria-hidden="true">&rsaquo;</span></a>
     </header>
 
     <main>
-      <section aria-labelledby="h-safety">
-        <h2 id="h-safety">Safety &amp; Compliance</h2>
-        <ul class="group">
-          <li>
-            <a class="link" href="https://hazwoper-osha.com" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-              <span class="label"><span class="text"><span class="title">HAZWOPER OSHA Training</span><span class="domain">hazwoper-osha.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://hazwoperosha.org" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
-              <span class="label"><span class="text"><span class="title">HAZWOPER OSHA Certification</span><span class="domain">hazwoperosha.org</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://confined-space.com" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M10 9v9M14 9v9M10 12h4M10 15h4"/></svg></span>
-              <span class="label"><span class="text"><span class="title">Confined Space Training</span><span class="domain">confined-space.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://excavationtrenchingshoring.com" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h6v12h8V8h6"/><path d="M8 12h8M8 16h8"/><path d="M12 8V3"/></svg></span>
-              <span class="label"><span class="text"><span class="title">Excavation, Trenching &amp; Shoring</span><span class="domain">excavationtrenchingshoring.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://moldtraining.us" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="9" cy="14" r="1.5"/><circle cx="14.5" cy="12.5" r="1"/><circle cx="14" cy="17" r="1.5"/></svg></span>
-              <span class="label"><span class="text"><span class="title">Mold Remediation Training</span><span class="domain">moldtraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="h-env">
-        <h2 id="h-env">Environmental</h2>
-        <ul class="group">
-          <li>
-            <a class="link" href="https://stormwaterplanning.us" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 13A4.5 4.5 0 0 0 16 4.3 6 6 0 0 0 4.5 7 4 4 0 0 0 5 15h1"/><path d="M8 17l-1 3M12 15l-1 3M16 17l-1 3"/></svg></span>
-              <span class="label"><span class="text"><span class="title">Stormwater Planning (SWPPP)</span><span class="domain">stormwaterplanning.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="h-tech">
-        <h2 id="h-tech">Technology</h2>
-        <ul class="group">
-          <li>
-            <a class="link" href="https://datacentertraining.us" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/></svg></span>
-              <span class="label"><span class="text"><span class="title">Data Center Training</span><span class="domain">datacentertraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="link" href="https://ai-skills.work" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span>
-              <span class="label"><span class="text"><span class="title">AI Skills for Work</span><span class="domain">ai-skills.work</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <ul class="group">
+        <li>
+          <a class="link" href="https://ictraining.us" target="_blank" rel="noopener">
+            <img class="icon icon-logo" src="assets/logo.png" width="40" height="40" alt="">
+            <span class="label"><span class="text"><span class="title">Industrial Certified Training</span><span class="domain">ictraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://hazwoper-osha.com" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+            <span class="label"><span class="text"><span class="title">HAZWOPER OSHA Training</span><span class="domain">hazwoper-osha.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://hazwoperosha.org" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span class="label"><span class="text"><span class="title">HAZWOPER OSHA Certification</span><span class="domain">hazwoperosha.org</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://ai-skills.work" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span>
+            <span class="label"><span class="text"><span class="title">AI Skills for Work</span><span class="domain">ai-skills.work</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://confined-space.com" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M10 9v9M14 9v9M10 12h4M10 15h4"/></svg></span>
+            <span class="label"><span class="text"><span class="title">Confined Space Training</span><span class="domain">confined-space.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://moldtraining.us" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="9" cy="14" r="1.5"/><circle cx="14.5" cy="12.5" r="1"/><circle cx="14" cy="17" r="1.5"/></svg></span>
+            <span class="label"><span class="text"><span class="title">Mold Remediation Training</span><span class="domain">moldtraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://excavationtrenchingshoring.com" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h6v12h8V8h6"/><path d="M8 12h8M8 16h8"/><path d="M12 8V3"/></svg></span>
+            <span class="label"><span class="text"><span class="title">Excavation, Trenching &amp; Shoring</span><span class="domain">excavationtrenchingshoring.com</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://stormwaterplanning.us" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 13A4.5 4.5 0 0 0 16 4.3 6 6 0 0 0 4.5 7 4 4 0 0 0 5 15h1"/><path d="M8 17l-1 3M12 15l-1 3M16 17l-1 3"/></svg></span>
+            <span class="label"><span class="text"><span class="title">Stormwater Planning (SWPPP)</span><span class="domain">stormwaterplanning.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="link" href="https://datacentertraining.us" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/></svg></span>
+            <span class="label"><span class="text"><span class="title">Data Center Training</span><span class="domain">datacentertraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+      </ul>
     </main>
 
     <footer>
