@@ -203,7 +203,91 @@
       "</li>";
   }
 
+  /* ---------- Social media buttons ---------- */
+
+  function socialRowHtml(item, i, count) {
+    var options = '<option value="">Choose…</option>' + Object.keys(R.networks).map(function (k) {
+      return '<option value="' + k + '"' + (k === item.network ? " selected" : "") + ">" + esc(R.networks[k].label) + "</option>";
+    }).join("");
+    return '<li class="row srow" data-i="' + i + '">' +
+      '<span class="num">' + (i + 1) + "</span>" +
+      '<div class="fields sfields">' +
+        '<select data-sf="network" aria-label="Network">' + options + "</select>" +
+        '<input type="url" class="url" data-sf="url" value="' + esc(item.url) + '" placeholder="https://" aria-label="Profile address" spellcheck="false" autocomplete="off">' +
+      "</div>" +
+      '<div class="tools">' +
+        tool("social-up", "up", "Move left", i === 0) +
+        tool("social-down", "down", "Move right", i === count - 1) +
+        tool("social-open", "open", "Open profile in a new tab", !R.isSafeUrl(item.url)) +
+        tool("social-del", "del", "Delete social link", false, true) +
+      "</div>" +
+      "</li>";
+  }
+
+  function renderSocialEditor(focus) {
+    var list = data.social || [];
+    $("social").innerHTML = '<section class="section social-card">' +
+      '<div class="section-head"><h2 class="card-title">Social media buttons</h2>' +
+        '<span class="count">' + plural(list.length, "button") + "</span></div>" +
+      (list.length
+        ? '<ol class="links">' + list.map(function (x, i) { return socialRowHtml(x, i, list.length); }).join("") + "</ol>"
+        : '<p class="empty">No social buttons. The row is hidden on the page until you add one.</p>') +
+      '<button type="button" class="add-link" data-act="social-add">' + svg("plus") + " Add social link</button>" +
+      "</section>";
+    if (focus) {
+      var el = null;
+      [].concat(focus.sel).some(function (sel) { return (el = $("social").querySelector(sel)); });
+      if (el) {
+        if (focus.flash) el.closest(".row").classList.add("new");
+        el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        el.focus({ preventScroll: true });
+      }
+    }
+  }
+
+  function onSocialClick(e) {
+    var btn = e.target.closest("[data-act]");
+    if (!btn || btn.tagName === "SELECT") return;
+    var act = btn.getAttribute("data-act");
+    var row = btn.closest(".srow");
+    var i = row ? +row.getAttribute("data-i") : -1;
+    if (act === "social-add") {
+      if (!data.social) data.social = [];
+      data.social.push({ network: "", url: "" });
+      renderSocialEditor({ sel: '.srow[data-i="' + (data.social.length - 1) + '"] select', flash: true });
+      return changed();
+    }
+    var list = data.social;
+    if (act === "social-open") {
+      if (R.isSafeUrl(list[i].url.trim())) window.open(list[i].url.trim(), "_blank", "noopener");
+      return;
+    }
+    if (act === "social-up" || act === "social-down") {
+      var to = act === "social-up" ? i - 1 : i + 1;
+      swap(list, i, to);
+      renderSocialEditor({ sel: ['.srow[data-i="' + to + '"] [data-act="' + act + '"]:not(:disabled)', '.srow[data-i="' + to + '"] select'] });
+      return changed();
+    }
+    if (act === "social-del") {
+      snapshot();
+      list.splice(i, 1);
+      renderSocialEditor();
+      return changed({ keepUndo: true });
+    }
+  }
+
+  function onSocialEdit(e) {
+    var el = e.target, row = el.closest(".srow");
+    if (!row || !el.hasAttribute("data-sf")) return;
+    var item = data.social[+row.getAttribute("data-i")];
+    item[el.getAttribute("data-sf")] = el.value;
+    el.classList.remove("bad");
+    if (el.getAttribute("data-sf") === "url") row.querySelector('[data-act="social-open"]').disabled = !R.isSafeUrl(el.value.trim());
+    changed();
+  }
+
   function renderEditor(focus) {
+    renderSocialEditor();
     var n = data.sections.length;
     $("sections").innerHTML = data.sections.map(function (s, si) {
       var rows = s.links.map(function (l, li) { return rowHtml(l, si, li, s.links.length); }).join("");
@@ -347,8 +431,8 @@
       try { doc = frame.contentDocument; } catch (e) {}
       var main = !full && doc && doc.querySelector("main");
       if (main) {
-        // Swap just the links so the preview keeps its scroll position while typing.
-        main.innerHTML = "\n" + R.renderSections(data) + "\n";
+        // Update the page in place so the preview keeps its scroll position while typing.
+        R.applyToPage(doc, data);
         return;
       }
       var base = new URL("../", location.href).href;
@@ -364,6 +448,7 @@
       s.title = s.title.trim();
       s.links.forEach(function (l) { l.title = l.title.trim(); l.subtitle = l.subtitle.trim(); l.url = l.url.trim(); });
     });
+    (out.social || []).forEach(function (x) { x.url = x.url.trim(); });
     return out;
   }
 
@@ -379,6 +464,12 @@
         if (!l.title.trim()) { ti.classList.add("bad"); first = first || ti; }
         if (!R.isSafeUrl(l.url.trim())) { ui.classList.add("bad"); first = first || ui; }
       });
+    });
+    $("social").querySelectorAll(".srow").forEach(function (row) {
+      var x = data.social[+row.getAttribute("data-i")];
+      var ns = row.querySelector('[data-sf="network"]'), us = row.querySelector('[data-sf="url"]');
+      if (!R.networks.hasOwnProperty(x.network)) { ns.classList.add("bad"); first = first || ns; }
+      if (!R.isSafeUrl(x.url.trim())) { us.classList.add("bad"); first = first || us; }
     });
     if (first) { first.scrollIntoView({ block: "center", behavior: "smooth" }); first.focus({ preventScroll: true }); }
   }
@@ -418,6 +509,10 @@
     if (newCats.length) items.push("New or renamed categories: " + newCats.map(function (c) { return "“" + esc(c) + "”"; }).join(", "));
     if (goneCats.length) items.push("Removed or renamed categories: " + goneCats.map(function (c) { return "“" + esc(c) + "”"; }).join(", "));
     if (!newCats.length && !goneCats.length && ca.join("\n") !== cb.join("\n")) items.push("Reordered categories");
+    if (JSON.stringify(before.social || []) !== JSON.stringify(after.social || [])) {
+      var sb = (before.social || []).length, sa = (after.social || []).length;
+      items.push("Updated social media buttons" + (sb !== sa ? " (" + sb + " → " + sa + ")" : ""));
+    }
     after.sections.forEach(function (s) {
       if (!s.links.length) items.push('<span class="warn">“' + esc(s.title) + "” has no links and won’t show on the page</span>");
     });
@@ -514,6 +609,9 @@
       $("token").value = "";
     });
   });
+  $("social").addEventListener("click", onSocialClick);
+  $("social").addEventListener("input", onSocialEdit);
+  $("social").addEventListener("change", onSocialEdit);
   $("sections").addEventListener("click", onClick);
   $("sections").addEventListener("input", onInput);
   $("sections").addEventListener("change", onChange);

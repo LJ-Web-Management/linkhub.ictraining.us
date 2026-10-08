@@ -102,6 +102,21 @@
       font-size: 19px; line-height: 1.42; letter-spacing: -.01em;
     }
 
+    /* Social */
+    .social { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 22px 0 0; padding: 0; list-style: none; }
+    .social a {
+      display: grid; place-items: center;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      transition: transform .15s ease;
+    }
+    @media (prefers-color-scheme: dark) { .social a { background: var(--surface); color: var(--link); } }
+    .social a:hover { transform: translateY(-2px); }
+    .social a:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+    .social svg { width: 19px; height: 19px; }
+
     /* Link list */
     section + section { margin-top: 28px; }
     h2 {
@@ -164,7 +179,7 @@
       @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     }
     @media (prefers-reduced-motion: reduce) {
-      .link, .chev { transition: none; }
+      .link, .chev, .social a { transition: none; }
     }
   </style>
   <script type="application/json" id="links-data">
@@ -229,7 +244,8 @@
         }
       ]
     }
-  ]
+  ],
+  "social": []
 }
   </script>
 </head>
@@ -240,6 +256,8 @@
       <span class="eyebrow">Since 2008</span>
       <h1>Industrial Certified Training</h1>
       <p class="lede">OSHA safety, environmental and technology training, all in one place.</p>
+      <!-- social:start -->
+      <!-- social:end -->
     </header>
 
     <main>
@@ -310,7 +328,7 @@
     </footer>
   </div>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-  <script src="render.js?v=e3dc5728" defer></script>
-  <script src="live.js?v=a6f7f3a6" data-source="https://raw.githubusercontent.com/LJ-Web-Management/linkhub-data/main/ictraining.json" defer></script>
+  <script src="render.js?v=9f176dde" defer></script>
+  <script src="live.js?v=8afc6bef" data-source="https://raw.githubusercontent.com/LJ-Web-Management/linkhub-data/main/ictraining.json" defer></script>
 </body>
 </html>

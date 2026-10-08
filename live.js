@@ -1,4 +1,4 @@
-// Loads the current links from the public linkhub-data repo and swaps them in. Which file is
+// Loads the current links and social row from the public linkhub-data repo and swaps them in. Which file is
 // set by the page: <script src="live.js" data-source="https://raw.githubusercontent.com/...">.
 //
 // The page already shows a built-in copy (rendered into the HTML), so if GitHub is slow or
@@ -22,9 +22,8 @@
     .then(function (raw) {
       var data = R.normalize(raw);
       // An empty or broken file must never blank the page; keep the built-in links instead.
-      var html = R.renderSections(data);
-      if (!html || JSON.stringify(data) === current) return;
-      main.innerHTML = "\n" + html + "\n    ";
+      if (!R.renderSections(data) || JSON.stringify(data) === current) return;
+      R.applyToPage(document, data);
     })
     .catch(function () {});
 })();
