@@ -7,8 +7,8 @@
   <meta name="description" content="Industrial Certified Training: OSHA, HAZWOPER, confined space, mold, excavation, stormwater, data center and AI skills training sites.">
   <meta property="og:title" content="Industrial Certified Training">
   <meta property="og:description" content="Safety, environmental and technology training sites. Since 2008.">
-  <meta property="og:url" content="https://linktree.ictraining.us/">
-  <meta property="og:image" content="https://linktree.ictraining.us/assets/og-image.jpg">
+  <meta property="og:url" content="https://linkhub.ictraining.us/">
+  <meta property="og:image" content="https://linkhub.ictraining.us/assets/og-image.jpg">
   <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
@@ -103,6 +103,14 @@
     }
 
     /* Link list */
+    section + section { margin-top: 28px; }
+    h2 {
+      margin: 0 0 8px 16px;
+      color: var(--secondary);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
     .group {
       list-style: none; margin: 0; padding: 0;
       background: var(--surface);
@@ -159,6 +167,71 @@
       .link, .chev { transition: none; }
     }
   </style>
+  <script type="application/json" id="links-data">
+{
+  "sections": [
+    {
+      "title": "Training websites",
+      "links": [
+        {
+          "title": "Industrial Certified Training",
+          "subtitle": "ictraining.us",
+          "url": "https://ictraining.us",
+          "icon": "assets/logo.png"
+        },
+        {
+          "title": "HAZWOPER OSHA Training",
+          "subtitle": "hazwoper-osha.com",
+          "url": "https://hazwoper-osha.com",
+          "icon": "assets/icons/hazwoper.png"
+        },
+        {
+          "title": "Training Partner Program",
+          "subtitle": "hazwoperosha.org",
+          "url": "https://hazwoperosha.org",
+          "icon": "assets/icons/hazwoper.png"
+        },
+        {
+          "title": "AI Skills for Work",
+          "subtitle": "ai-skills.work",
+          "url": "https://ai-skills.work",
+          "icon": "assets/icons/ai-skills.png"
+        },
+        {
+          "title": "Confined Space Training",
+          "subtitle": "confined-space.com",
+          "url": "https://confined-space.com",
+          "icon": "assets/icons/confined-space.png"
+        },
+        {
+          "title": "Mold Remediation Training",
+          "subtitle": "moldtraining.us",
+          "url": "https://moldtraining.us",
+          "icon": "assets/icons/mold.png"
+        },
+        {
+          "title": "Excavation, Trenching & Shoring",
+          "subtitle": "excavationtrenchingshoring.com",
+          "url": "https://excavationtrenchingshoring.com",
+          "icon": "assets/icons/excavation.png"
+        },
+        {
+          "title": "Stormwater Planning (SWPPP)",
+          "subtitle": "stormwaterplanning.us",
+          "url": "https://stormwaterplanning.us",
+          "icon": "assets/icons/stormwater.png"
+        },
+        {
+          "title": "Data Center Training",
+          "subtitle": "datacentertraining.us",
+          "url": "https://datacentertraining.us",
+          "icon": "assets/icons/datacenter.svg"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <div class="wrap">
@@ -170,7 +243,9 @@
     </header>
 
     <main>
-      <ul class="group">
+      <!-- links:start -->
+      <section aria-label="Training websites">
+        <ul class="group">
         <li>
           <a class="link" href="https://ictraining.us" target="_blank" rel="noopener">
             <img class="icon icon-logo" src="assets/logo.png" width="48" height="48" alt="">
@@ -225,7 +300,9 @@
             <span class="label"><span class="text"><span class="title">Data Center Training</span><span class="domain">datacentertraining.us</span></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg></span>
           </a>
         </li>
-      </ul>
+        </ul>
+      </section>
+      <!-- links:end -->
     </main>
 
     <footer>
@@ -233,5 +310,7 @@
     </footer>
   </div>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="render.js" defer></script>
+  <script src="live.js" data-source="https://raw.githubusercontent.com/LJ-Web-Management/linkhub-data/main/ictraining.json" defer></script>
 </body>
 </html>

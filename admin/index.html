@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Link Hub Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <!-- The access token lives in this page, so nothing third-party may run here. The
+       preview iframe inherits this policy, hence the font hosts and inline styles. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="bar-in">
+      <a class="brand" href="../" target="_blank" rel="noopener" title="Open the live page">
+        <img src="../assets/favicon.png" width="28" height="28" alt="">
+        <span>Link Hub <b>Admin</b></span>
+      </a>
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+      <div class="actions" id="actions" hidden>
+        <button type="button" class="btn ghost" id="discard" disabled>Discard</button>
+        <button type="button" class="btn ghost only-narrow" id="preview-open">Preview</button>
+        <button type="button" class="btn primary" id="save" disabled><span class="wide-only">Save &amp;&nbsp;</span>Publish</button>
+        <button type="button" class="btn ghost icon-btn" id="signout" title="Sign out" aria-label="Sign out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sign in -->
+  <main class="signin" id="signin" hidden>
+    <div class="card">
+      <img class="seal" src="../assets/logo.png" width="72" height="72" alt="">
+      <h1>Sign in to edit links</h1>
+      <p class="muted">Links are stored in the <code data-cfg="repo">LJ-Web-Management/linkhub-data</code> repository on GitHub, and changes show on the page about a minute after you publish. Sign in with a GitHub access token that can write to that repository.</p>
+      <form id="signin-form" novalidate>
+        <label for="token">GitHub access token</label>
+        <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_… or ghp_…" required>
+        <label class="check"><input type="checkbox" id="remember"> Keep me signed in on this device</label>
+        <p class="error" id="signin-error" role="alert" hidden></p>
+        <button type="submit" class="btn primary block" id="signin-btn">Sign in</button>
+      </form>
+      <details class="help">
+        <summary>How do I get a token?</summary>
+        <ol>
+          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Fine-grained tokens → Generate new token</a>.</li>
+          <li>Sign in as <b data-cfg="owner">LJ-Web-Management</b>. Set <b>Repository access</b> to <b>Only select repositories → <span data-cfg="repo-name">linkhub-data</span></b>.</li>
+          <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li>
+          <li>Generate it, copy it, and paste it above. Treat it like a password.</li>
+        </ol>
+      </details>
+    </div>
+  </main>
+
+  <!-- Editor -->
+  <div class="layout" id="editor" hidden>
+    <main class="edit">
+      <div class="intro">
+        <h1>Links &amp; categories</h1>
+        <p class="muted">Edit titles, subtitles and addresses, reorder with the arrows, or move a link to another category. Nothing changes on the live page until you press <b>Save &amp; Publish</b>.</p>
+      </div>
+      <div id="sections"></div>
+      <button type="button" class="btn add-section" id="add-section">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Add category
+      </button>
+    </main>
+    <aside class="preview" id="preview" aria-label="Live preview">
+      <div class="preview-head">
+        <span>Preview</span>
+        <button type="button" class="btn ghost only-narrow" id="preview-close">Close</button>
+      </div>
+      <div class="phone"><iframe id="frame" title="Preview of the public page" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></div>
+    </aside>
+  </div>
+
+  <!-- Save dialog -->
+  <dialog id="save-dialog">
+    <form method="dialog" id="save-form">
+      <h2>Publish changes?</h2>
+      <ul class="summary" id="save-summary"></ul>
+      <label for="message">Note for the change history <span class="muted">(optional)</span></label>
+      <input id="message" type="text" maxlength="120" placeholder="e.g. Added new H2S course">
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="save-cancel">Cancel</button>
+        <button type="submit" class="btn primary" id="save-confirm">Publish</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="../render.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

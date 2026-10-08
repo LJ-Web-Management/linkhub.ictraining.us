@@ -1,0 +1,15 @@
+{
+  "repo": "LJ-Web-Management/linkhub-data",
+  "file": "ictraining.json",
+  "brand": { "color": "#1d5fd6", "press": "#174cb0", "ink": "#ffffff" },
+  "icons": [
+    { "label": "Industrial Certified Training", "path": "assets/logo.png" },
+    { "label": "HAZWOPER OSHA", "path": "assets/icons/hazwoper.png" },
+    { "label": "AI Skills", "path": "assets/icons/ai-skills.png" },
+    { "label": "Confined Space", "path": "assets/icons/confined-space.png" },
+    { "label": "Mold", "path": "assets/icons/mold.png" },
+    { "label": "Excavation", "path": "assets/icons/excavation.png" },
+    { "label": "Stormwater", "path": "assets/icons/stormwater.png" },
+    { "label": "Data Center", "path": "assets/icons/datacenter.svg" }
+  ]
+}
