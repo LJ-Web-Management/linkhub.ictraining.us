@@ -5,7 +5,7 @@
 // these admin files are identical on every site. This page reads the file through the GitHub
 // API, edits it and commits it back. The public page loads
 // links.json on every visit (../live.js), so there is no deploy step: a save is live within
-// about a minute.
+// about 5 minutes (GitHub's file cache).
 (function () {
   "use strict";
 
@@ -577,12 +577,13 @@
   }
 
   // Polls GitHub until links.json serves the data just published. Visitors' browsers ask for a
-  // per-minute version (see ../live.js), so once this matches they see it within a minute.
+  // per-minute version (see ../live.js) of the same cached file, so when this matches the page is
+  // updated; GitHub's servers elsewhere can lag by up to 5 minutes.
   function watchLive(json, commitUrl) {
     clearInterval(pollTimer);
     var tries = 0;
     var link = commitUrl ? ' <a href="' + esc(commitUrl) + '" target="_blank" rel="noopener">View change</a>' : "";
-    setStatus("Published. Updating the page…" + link, "ok");
+    setStatus("Published. The page updates within about 5 minutes…" + link, "ok");
     pollTimer = setInterval(function () {
       tries++;
       fetch(RAW + "?t=" + Date.now(), { cache: "no-store" })
@@ -590,8 +591,8 @@
         .then(function (live) {
           if (JSON.stringify(R.normalize(live)) === json) {
             clearInterval(pollTimer); pollTimer = 0;
-            if (!isDirty()) setStatus("Live ✓ Visitors see it within a minute." + link, "ok");
-          } else if (tries >= 60) {
+            if (!isDirty()) setStatus("Live ✓" + link, "ok");
+          } else if (tries >= 96) {
             clearInterval(pollTimer); pollTimer = 0;
             if (!isDirty()) setStatus("Saved. The live page is taking longer than usual to update." + link, "ok");
           }

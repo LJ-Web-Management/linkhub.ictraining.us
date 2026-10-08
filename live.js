@@ -2,8 +2,9 @@
 // set by the page: <script src="live.js" data-source="https://raw.githubusercontent.com/...">.
 //
 // The page already shows a built-in copy (rendered into the HTML), so if GitHub is slow or
-// unreachable visitors still get working links. The ?v= minute bucket keeps GitHub's 5-minute
-// cache from hiding a fresh edit for long while still letting the CDN cache within a minute.
+// unreachable visitors still get working links. GitHub's file servers cache each file for up to
+// 5 minutes and ignore query strings, so an edit can take that long to appear; the ?v= minute
+// bucket only stops the visitor's own browser cache adding more delay on top.
 (function () {
   "use strict";
 
